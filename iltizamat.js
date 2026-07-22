@@ -219,19 +219,14 @@ const steps = {
   },
 
   closing: {
-    title: "هل تحتاج مساعدة في التزاماتك القانونية؟",
+    title: "خلاصة الدليل",
     num: 8,
     isFinal: true,
     content: `
     <div class="closing-card">
-      <p>فريق <b>Oathentiq</b> يرافقك في كل التزاماتك القانونية والإدارية:</p>
-      <div class="closing-list">
-        <div class="check-item">إعداد النظام الداخلي المطابق للقانون 90-11</div>
-        <div class="check-item">مسك السجلات الإلزامية السبعة</div>
-        <div class="check-item">التصريحات CNAS ومفتشية العمل</div>
-        <div class="check-item">الاتفاقيات الجماعية وحماية العمال</div>
-      </div>
-      <a class="btn btn-primary" href="https://oathentiq.com" target="_blank" rel="noopener">اطلب استشارة الآن ←</a>
+      <p>بهذا تكون قد اطّلعت على أبرز التزامات المستخدم في التشريع الجزائري، وفق القانون 90-11 والمراسيم التنظيمية.</p>
+      <p>لمزيد من المعلومات القانونية، يمكنك زيارة موقع <b>Oathentiq</b> الإلكتروني.</p>
+      <a class="btn btn-primary" href="https://oathentiq.com" target="_blank" rel="noopener">→ زيارة OATHENTIQ.COM</a>
     </div>
     `
   }
