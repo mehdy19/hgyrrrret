@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>الدليل القانوني لأصحاب المشاريع في الجزائر | Oathentiq</title>
+<meta name="description" content="الدليل القانوني الشامل لأصحاب المشاريع في الجزائر: الالتزامات القانونية والإدارية الواجب احترامها والعمل بها، بإعداد مكتب Oathentiq للاستشارات القانونية.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://guide-nesda.vercel.app/legal.html">
+<meta name="theme-color" content="#57d99b">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brandmark">
+      <span class="dot"></span>
+      <h1>الدليل القانوني — الجزائر</h1>
+    </div>
+    <a href="index.html" class="track-btn" style="text-decoration:none;">→ الصفحة الرئيسية</a>
+  </header>
+
+  <section class="home-intro">
+    <h1>الدليل القانوني لأصحاب المشاريع في الجزائر</h1>
+    <p>هذا الدليل خاص بالأمور القانونية التي يجب على أصحاب المشاريع في الجزائر احترامها والعمل بها، تجاه العمال والهيئات الرسمية على حدٍ سواء. يغطي الدليل التزاماتك وفق القوانين والمراسيم التنظيمية المعمول بها، محورًا بعد محور.</p>
+  </section>
+
+  <div class="source-tag" style="display:flex;">🇩🇿 دليل قانوني شامل · بإعداد مكتب <b>&nbsp;Oathentiq&nbsp;</b> للاستشارات القانونية</div>
+
+  <div class="guide-grid">
+
+    <!-- القسم الأول: التزامات المستخدم في التشريع الجزائري -->
+    <div class="guide-card">
+      <div class="guide-icon">⚖️</div>
+      <h2>القسم 1 · التزامات المستخدم في التشريع الجزائري</h2>
+      <p>دليل تفاعلي شامل لصاحب العمل حول المسؤوليات القانونية والإدارية تجاه العمال والهيئات الرسمية: الأجور، بيئة العمل، مفتشية العمل، الضمان الاجتماعي (CNAS)، الضرائب، السجلات الإلزامية، وحماية العمال — وفق القانون 90-11 والمراسيم التنظيمية.</p>
+      <a href="iltizamat.html" class="btn btn-primary">ابدأ هذا القسم ←</a>
+    </div>
+
+  </div>
+
+  <footer class="foot">دليل قانوني تفاعلي بإعداد مكتب Oathentiq للاستشارات القانونية والمرافقة القانونية للمشاريع الناشئة في الجزائر</footer>
+</div>
+
+<div class="source-footer" style="max-width:820px; margin:0 auto; padding:0 20px 20px;">
+  المصدر: مكتب <b>Oathentiq</b> للاستشارات القانونية —
+  <a href="https://oathentiq.com" target="_blank" rel="noopener">OATHENTIQ.COM</a>
+</div>
+
+<footer class="copyright">جميع الحقوق محفوظة © Oathentiq 2026</footer>
+
+</body>
+</html>
