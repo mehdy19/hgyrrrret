@@ -637,3 +637,526 @@ document.getElementById("startBtn").addEventListener("click", ()=>{
   render("idea_check");
   window.scrollTo({top:0, behavior:"smooth"});
 });
+
+/* ============================================================
+   دليل التزامات المستخدم في التشريع الجزائري — Oathentiq
+   منطق الدليل التفاعلي (بيانات + عرض + تنقل)
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------------------
+     1) بيانات المحاور (7 محاور قانونية)
+  --------------------------------------------------------- */
+  const STAGES = [
+    {
+      icon: "💰",
+      eyebrow: "المحور الأول · الأجور",
+      title: "التزامات الأجور والحماية المالية",
+      ref: "القانون 90-11",
+      type: "grid",
+      points: [
+        {
+          num: "01",
+          title: "دفع الأجر بانتظام",
+          desc: "الالتزام بصرف الرواتب عند حلول أجل استحقاقها بصفة دورية.",
+          badge: "المادة 88",
+        },
+        {
+          num: "02",
+          title: "احترام الحد الأدنى للأجور",
+          desc: "منع دفع مبالغ أقل من الأجر الوطني الأدنى المضمون (SNMG).",
+          badge: "المادة 87",
+        },
+        {
+          num: "03",
+          title: "تسليم قسيمة الراتب",
+          desc: "وجوب تسليم كشف راتب دوري يوضح كافة عناصر الأجر والاقتطاعات بالتسمية.",
+          badge: "المادة 86",
+        },
+        {
+          num: "04",
+          title: "ضمان المساواة",
+          desc: "الالتزام بمبدأ أجر متساوٍ لعمل ذي قيمة متساوية دون تمييز.",
+          badge: "المادة 84",
+        },
+      ],
+      summary: "الأجر = حق قانوني — الالتزام بآجله وحدّه الأدنى ضمان للكرامة",
+    },
+    {
+      icon: "🏭",
+      eyebrow: "المحور الثاني · بيئة العمل",
+      title: "التزامات بيئة العمل والتنظيم",
+      ref: "القانون 90-11",
+      type: "grid",
+      points: [
+        {
+          num: "01",
+          title: "النظام الداخلي",
+          desc: "إعداد وثيقة مكتوبة تحدد القواعد التقنية والصحة والانضباط في المؤسسات التي تشغّل 20 عاملاً فأكثر.",
+          badge: "المادة 75",
+        },
+        {
+          num: "02",
+          title: "كرامة العامل وسلامته",
+          desc: "توفير ظروف عمل تضمن السلامة البدنية والمعنوية واحترام الكرامة.",
+          badge: "المادة 6",
+        },
+        {
+          num: "03",
+          title: "أوقات العمل",
+          desc: "الالتزام بالمدة القانونية المحددة بـ 40 ساعة أسبوعياً.",
+          badge: "المادة 22",
+        },
+        {
+          num: "04",
+          title: "التكوين والترقية",
+          desc: "مباشرة أعمال التكوين وتحسين المستوى المهني للعمال.",
+          badge: "المادة 57",
+        },
+      ],
+      summary: "بيئة عمل منظمة = إنتاجية أعلى + علاقات عمل مستقرة",
+    },
+    {
+      icon: "⚖️",
+      eyebrow: "المحور الثالث · مفتشية العمل",
+      title: "الالتزام تجاه مفتشية العمل",
+      ref: "القانون 90-11",
+      type: "authority",
+      authority: {
+        label: "الإدارة المختصة",
+        name: "مفتشية العمل المختصة إقليمياً",
+        purposeLabel: "الغرض",
+        purpose: "الرقابة على تطبيق التشريع وضمان ظروف الصحة والأمن والوقاية.",
+      },
+      checklist: [
+        {
+          text: "وضع السجلات القانونية تحت تصرف المفتش عند كل طلب.",
+          badge: "المادة 156 · 90-11",
+        },
+        {
+          text: "إيداع نسخة من النظام الداخلي للمصادقة على مطابقته للقانون.",
+          badge: "المادة 79 · 90-11",
+        },
+      ],
+      summary: "التعاون مع مفتشية العمل = حماية قانونية للمؤسسة والعمال",
+    },
+    {
+      icon: "🏥",
+      eyebrow: "المحور الرابع · الضمان الاجتماعي",
+      title: "الالتزام تجاه صندوق الضمان الاجتماعي (CNAS)",
+      ref: "قانون 83-14",
+      type: "authority",
+      authority: {
+        label: "الإدارة المختصة",
+        name: "الصندوق الوطني للتأمينات الاجتماعية للعمال الأجراء",
+        purposeLabel: "الغرض",
+        purpose: "ضمان التغطية الصحية والاجتماعية وحماية العمال من حوادث العمل.",
+      },
+      checklist: [
+        {
+          text: "التصريح بالنشاط خلال 10 أيام من بدايته.",
+          badge: "المادة 10 · قانون 83-14",
+        },
+        {
+          text: "التصريح بانتساب العمال الجدد في أجل 10 أيام من تاريخ تشغيلهم.",
+          badge: "المادة 10 · قانون 83-14",
+        },
+        {
+          text: "اقتطاع حصة العامل (9%) وتحويلها مع حصة المستخدم بانتظام.",
+        },
+        {
+          text: "دفع الاشتراكات الفصلية أو الشهرية حسب الحالة عبر التصريح DAC.",
+        },
+        {
+          text: "إيداع التصريح السنوي للأجور DAS المتضمن معلومات العمال الصحيحة مع تدوين أجورهم وفترات عملهم.",
+        },
+      ],
+      summary: "التأخر عن التصريح لـ CNAS = غرامات وعقوبات قانونية",
+    },
+    {
+      icon: "🧾",
+      eyebrow: "المحور الخامس · الضرائب والمحكمة",
+      title: "الالتزام تجاه إدارة الضرائب والمحكمة",
+      ref: "القانون 90-11",
+      type: "grid",
+      points: [
+        {
+          num: "01",
+          title: "إدارة الضرائب",
+          desc: "اقتطاع الضريبة على الدخل الإجمالي (IRG) من المنبع وتحويلها لمصالح الضرائب.",
+        },
+        {
+          num: "02",
+          title: "كتابة ضبط المحكمة",
+          desc: "إيداع نسخة من النظام الداخلي لتسجيله وضمان نفاذه القانوني.",
+          badge: "المادة 79 · 90-11",
+        },
+        {
+          num: "03",
+          title: "الاتفاقيات الجماعية",
+          desc: "إيداع الاتفاقيات الجماعية فور إبرامها لدى مفتشية العمل والمحكمة المختصة.",
+          badge: "المادة 126 · 90-11",
+        },
+      ],
+      summary: "الإيداع القانوني = نفاذ الاتفاقيات وحماية الطرفين",
+    },
+    {
+      icon: "📚",
+      eyebrow: "المحور السادس · السجلات الإلزامية",
+      title: "مسك السجلات الإلزامية (مرسوم 96-98)",
+      ref: "مرسوم 96-98",
+      type: "registers",
+      lead: {
+        number: "7",
+        text: "يجب على كل مستخدم مسك 7 سجلات قانونية مرقّمة ومؤشّر عليها.",
+        badge: "المادة 1 من المرسوم",
+      },
+      registers: [
+        { icon: "👥", label: "سجل العمال" },
+        { icon: "🚨", label: "سجل حوادث العمل" },
+        { icon: "🏖️", label: "سجل العطل السنوية" },
+        { icon: "⚠️", label: "سجل إنذارات مفتشية العمل" },
+        { icon: "💵", label: "دفتر الأجور" },
+      ],
+      notes: [
+        "التصديق: يوقّع القاضي دفتر الأجور فقط، بينما تؤشّر باقي السجلات من طرف مفتش العمل المختص إقليمياً.",
+        "ملاحظة: حسب الحالة، يمكن مسك سجلات إضافية — مثال: سجل الأجانب عند تشغيل عمال أجانب.",
+      ],
+      duration: {
+        label: "مدة الحفظ: 10 سنوات",
+        text: "يجب الاحتفاظ بهذه السجلات لمدة 10 سنوات من تاريخ اختتامها.",
+        badge: "المادة 17 من المرسوم",
+      },
+      summary: "السجلات المرقّمة المؤشّر عليها = دليل قانوني يحمي صاحب العمل",
+    },
+    {
+      icon: "🔒",
+      eyebrow: "المحور السابع · الحماية والإنهاء",
+      title: "حماية العمال وضوابط الإنهاء",
+      ref: "القانون 90-11",
+      type: "grid",
+      points: [
+        {
+          num: "01",
+          title: "حماية الأجر",
+          desc: "منع حجز الأجور أو اقتطاعها مهما كان السبب باستثناء الحالات القانونية.",
+          badge: "المادة 90",
+        },
+        {
+          num: "02",
+          title: "استمرارية العقود",
+          desc: "تغيير الوضعية القانونية للمؤسسة لا ينهي علاقات العمل بل تنتقل للمستخدم الجديد.",
+          badge: "المادة 74",
+        },
+        {
+          num: "03",
+          title: "غرامات المخالفة",
+          desc: "أي إخلال بالتزامات الأجور أو السجلات يعرّض صاحب العمل لغرامات مالية مشدّدة.",
+          badge: "المادة 145 وما يليها",
+        },
+      ],
+      summary: "احترام القانون = تجنّب الغرامات وحماية سمعة المؤسسة",
+    },
+  ];
+
+  const TOTAL = STAGES.length;
+  const OUTRO_INDEX = TOTAL; // شاشة ختامية بعد آخر محور
+
+  /* ---------------------------------------------------------
+     2) عناصر DOM
+  --------------------------------------------------------- */
+  const introScreen = document.getElementById("introScreen");
+  const mainApp = document.getElementById("mainApp");
+  const startBtn = document.getElementById("startBtn");
+  const restartBtn = document.getElementById("restartBtn");
+  const railEl = document.getElementById("rail");
+  const stageLabelEl = document.getElementById("stageLabel");
+  const cardEl = document.getElementById("card");
+
+  let current = 0;
+
+  /* ---------------------------------------------------------
+     3) أدوات مساعدة لبناء العناصر
+  --------------------------------------------------------- */
+  function el(tag, className, html) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (html !== undefined) node.innerHTML = html;
+    return node;
+  }
+
+  function badge(text) {
+    return `<span class="badge">★ ${text}</span>`;
+  }
+
+  /* ---------------------------------------------------------
+     4) بناء شريط التقدّم (rail)
+  --------------------------------------------------------- */
+  function renderRail() {
+    railEl.innerHTML = "";
+    for (let i = 0; i < TOTAL; i++) {
+      const step = el(
+        "button",
+        "rail-step" +
+          (i === current ? " active" : "") +
+          (i < current ? " done" : ""),
+        `<span class="rail-num">${i + 1}</span>`
+      );
+      step.type = "button";
+      step.setAttribute("aria-label", STAGES[i].eyebrow);
+      step.addEventListener("click", () => goTo(i));
+      railEl.appendChild(step);
+    }
+  }
+
+  /* ---------------------------------------------------------
+     5) عرض بطاقة محور (grid / authority / registers)
+  --------------------------------------------------------- */
+  function renderGrid(stage) {
+    const grid = el("div", "points-grid");
+    stage.points.forEach((p) => {
+      const point = el(
+        "div",
+        "point",
+        `
+        <span class="point-num">${p.num}</span>
+        <h3 class="point-title">${p.title}</h3>
+        <p class="point-desc">${p.desc}</p>
+        ${p.badge ? badge(p.badge) : ""}
+      `
+      );
+      grid.appendChild(point);
+    });
+    return grid;
+  }
+
+  function renderAuthority(stage) {
+    const wrap = el("div", "authority-box");
+
+    const head = el(
+      "div",
+      "authority-head",
+      `
+      <span class="authority-icon">${stage.icon}</span>
+      <div>
+        <span class="authority-label">${stage.authority.label}</span>
+        <h3 class="authority-name">${stage.authority.name}</h3>
+      </div>
+    `
+    );
+    wrap.appendChild(head);
+
+    const purpose = el(
+      "p",
+      "authority-purpose",
+      `<b>${stage.authority.purposeLabel}:</b> ${stage.authority.purpose}`
+    );
+    wrap.appendChild(purpose);
+
+    const listTitle = el("p", "checklist-title", "★ كيفية الالتزام:");
+    wrap.appendChild(listTitle);
+
+    const list = el("ul", "checklist");
+    stage.checklist.forEach((item) => {
+      const li = el(
+        "li",
+        "checklist-item",
+        `
+        <span class="check-mark">✔</span>
+        <span class="check-text">${item.text}</span>
+        ${item.badge ? `<span class="check-badge">${item.badge}</span>` : ""}
+      `
+      );
+      list.appendChild(li);
+    });
+    wrap.appendChild(list);
+
+    return wrap;
+  }
+
+  function renderRegisters(stage) {
+    const wrap = el("div", "registers-box");
+
+    const lead = el(
+      "div",
+      "registers-lead",
+      `
+      <span class="registers-number">${stage.lead.number}</span>
+      <div>
+        <p class="registers-text">${stage.lead.text}</p>
+        ${badge(stage.lead.badge)}
+      </div>
+    `
+    );
+    wrap.appendChild(lead);
+
+    const listTitle = el("p", "checklist-title", "★ أهم السجلات:");
+    wrap.appendChild(listTitle);
+
+    const grid = el("div", "registers-grid");
+    stage.registers.forEach((r) => {
+      grid.appendChild(
+        el(
+          "div",
+          "register-item",
+          `<span class="register-icon">${r.icon}</span><span class="register-label">${r.label}</span>`
+        )
+      );
+    });
+    wrap.appendChild(grid);
+
+    stage.notes.forEach((n) => {
+      wrap.appendChild(el("p", "registers-note", n));
+    });
+
+    wrap.appendChild(
+      el(
+        "p",
+        "registers-duration",
+        `<b>${stage.duration.label}</b> — ${stage.duration.text} ${badge(
+          stage.duration.badge
+        )}`
+      )
+    );
+
+    return wrap;
+  }
+
+  function renderStage(index) {
+    const stage = STAGES[index];
+
+    cardEl.innerHTML = "";
+
+    const header = el(
+      "div",
+      "card-header",
+      `
+      <span class="card-icon">${stage.icon}</span>
+      <div>
+        <span class="card-eyebrow">${stage.eyebrow}</span>
+        <h2 class="card-title">${stage.title}</h2>
+      </div>
+      <span class="card-ref">★ المرجع: ${stage.ref}</span>
+    `
+    );
+    cardEl.appendChild(header);
+
+    let body;
+    if (stage.type === "grid") body = renderGrid(stage);
+    else if (stage.type === "authority") body = renderAuthority(stage);
+    else if (stage.type === "registers") body = renderRegisters(stage);
+    cardEl.appendChild(body);
+
+    cardEl.appendChild(el("div", "card-summary", `★ ${stage.summary}`));
+
+    cardEl.appendChild(renderNav(index));
+
+    stageLabelEl.textContent = `المحور ${index + 1} من ${TOTAL} — ${stage.eyebrow.split("·")[1].trim()}`;
+  }
+
+  /* ---------------------------------------------------------
+     6) الشاشة الختامية (مصدر الدليل: Oathentiq)
+  --------------------------------------------------------- */
+  function renderOutro() {
+    cardEl.innerHTML = "";
+    stageLabelEl.textContent = "خلاصة الدليل";
+
+    const outro = el(
+      "div",
+      "outro-box",
+      `
+      <span class="outro-check">✅</span>
+      <h2 class="outro-title">أنهيت الدليل الكامل لالتزامات المستخدم</h2>
+      <p class="outro-sub">
+        غطّى هذا الدليل ${TOTAL} محاور قانونية أساسية بصفة صاحب العمل تجاه العمال
+        والهيئات الرسمية، وفق القانون 90-11 والمراسيم التنظيمية.
+      </p>
+
+      <div class="outro-source">
+        <span class="outro-source-label">مصدر هذا الدليل</span>
+        <h3 class="outro-source-name">مكتب Oathentiq للاستشارات القانونية</h3>
+        <p class="outro-source-desc">استشارة قانونية متخصصة في قانون العمل — إعداد النظام الداخلي، مسك السجلات الإلزامية، تصريحات CNAS ومفتشية العمل، والاتفاقيات الجماعية.</p>
+        <a class="btn btn-primary outro-link" href="https://oathentiq.com" target="_blank" rel="noopener">→ OATHENTIQ.COM</a>
+      </div>
+    `
+    );
+    cardEl.appendChild(outro);
+
+    const nav = el("div", "card-nav");
+    const prevBtn = el("button", "btn nav-btn", "→ رجوع للمحور الأخير");
+    prevBtn.type = "button";
+    prevBtn.addEventListener("click", () => goTo(TOTAL - 1));
+    nav.appendChild(prevBtn);
+
+    const restart = el("button", "btn btn-primary nav-btn", "إعادة البدء من جديد ↺");
+    restart.type = "button";
+    restart.addEventListener("click", () => goTo(0));
+    nav.appendChild(restart);
+
+    cardEl.appendChild(nav);
+
+    // إبراز اكتمال كل الخطوات في الشريط
+    Array.from(railEl.children).forEach((step) => step.classList.add("done"));
+    railEl.querySelectorAll(".active").forEach((s) => s.classList.remove("active"));
+  }
+
+  /* ---------------------------------------------------------
+     7) أزرار التنقل داخل البطاقة
+  --------------------------------------------------------- */
+  function renderNav(index) {
+    const nav = el("div", "card-nav");
+
+    const prevBtn = el("button", "btn nav-btn", "→ السابق");
+    prevBtn.type = "button";
+    prevBtn.disabled = index === 0;
+    prevBtn.addEventListener("click", () => goTo(index - 1));
+    nav.appendChild(prevBtn);
+
+    const isLast = index === TOTAL - 1;
+    const nextBtn = el(
+      "button",
+      "btn btn-primary nav-btn",
+      isLast ? "خلاصة الدليل ←" : "التالي ←"
+    );
+    nextBtn.type = "button";
+    nextBtn.addEventListener("click", () => goTo(index + 1));
+    nav.appendChild(nextBtn);
+
+    return nav;
+  }
+
+  /* ---------------------------------------------------------
+     8) التنقل بين المحاور
+  --------------------------------------------------------- */
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, OUTRO_INDEX));
+    renderRail();
+    if (current === OUTRO_INDEX) {
+      renderOutro();
+    } else {
+      renderStage(current);
+    }
+    cardEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /* ---------------------------------------------------------
+     9) بدء التشغيل
+  --------------------------------------------------------- */
+  function startGuide() {
+    introScreen.style.display = "none";
+    mainApp.style.display = "block";
+    current = 0;
+    renderRail();
+    renderStage(0);
+  }
+
+  if (startBtn) startBtn.addEventListener("click", startGuide);
+  if (restartBtn)
+    restartBtn.addEventListener("click", () => {
+      current = 0;
+      renderRail();
+      renderStage(0);
+    });
+})();
