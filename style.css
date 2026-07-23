@@ -21,6 +21,12 @@
     min-height:100vh;
     direction:rtl;
   }
+  
+  /* إزالة الخطوط السفلية من جميع الروابط عامة */
+  a {
+    text-decoration: none;
+  }
+
   .wrap{
     max-width:820px;
     margin:0 auto;
@@ -61,6 +67,7 @@
     padding:7px 14px;
     border-radius:20px;
     cursor:pointer;
+    text-decoration:none;
   }
   .track-btn:hover{border-color:var(--brand);color:var(--brand-dark);}
 
@@ -203,6 +210,7 @@
     cursor:pointer;
     text-align:right;
     transition:border-color .2s, background .2s, transform .1s;
+    text-decoration:none;
   }
   .choice-btn:hover{
     border-color:var(--brand);
@@ -237,6 +245,7 @@
     border:none;
     cursor:pointer;
     transition:filter .15s, transform .1s;
+    text-decoration:none;
   }
   .btn:active{transform:scale(.98);}
   .btn-primary{
